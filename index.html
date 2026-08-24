@@ -580,6 +580,54 @@
       .result-cell:nth-child(3n) { border-right: 1px solid var(--border); }
       footer { flex-direction: column; gap: 16px; text-align: center; }
     }
+
+    /* ── MOBILE (iPhone) ── */
+    @media (max-width: 480px) {
+      body { overflow-x: hidden; }
+
+      /* Nav */
+      nav { padding: 14px 20px; }
+      nav img { height: 28px !important; }
+
+      /* Hero */
+      .hero { padding: 80px 20px 52px; }
+      .hero-title { font-size: clamp(52px, 18vw, 80px); margin-bottom: 36px; }
+      .hero-meta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px 16px;
+      }
+      .hero-meta-item span { font-size: 15px; }
+      .hero-scroll { display: none; }
+      .hero-bg-line, .hero-bg-line2 { display: none; }
+
+      /* Stats bar */
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+      .stat { padding: 28px 20px; }
+      .stat-num { font-size: clamp(28px, 8vw, 44px); }
+
+      /* Sections */
+      section { padding: 52px 20px; }
+      section.tight { padding: 40px 20px; }
+
+      /* Result grid — single column on small phones */
+      .result-grid { grid-template-columns: 1fr; }
+      .result-cell { border-right: none !important; }
+      .result-cell:nth-last-child(-n+1) { border-bottom: none; }
+
+      /* Budget table */
+      .budget-table td { font-size: 13px; }
+      .budget-table .td-amount { font-size: 18px; padding-left: 20px; }
+      .budget-table tr.total .td-amount { font-size: 22px; }
+
+      /* Pill rows */
+      .pill { font-size: 12px; padding: 7px 14px; }
+
+      /* Footer */
+      footer { padding: 36px 20px; }
+      .footer-brand a { flex-direction: column; align-items: center; gap: 8px; }
+      .footer-brand img { height: 24px !important; }
+    }
   </style>
 </head>
 <body>
