@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DKD — Growth Case Study / SAMO Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:   #080808;
+      --white:   #F0EDE8;
+      --gold:    #C8A84B;
+      --gold-dim: rgba(200,168,75,0.12);
+      --red:     #D94040;
+      --red-dim: rgba(217,64,64,0.08);
+      --mid:     #141414;
+      --mid2:    #1C1C1C;
+      --border:  rgba(255,255,255,0.07);
+      --muted:   #5A5A5A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 22px 52px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.98) 0%, transparent 100%);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .nav-right {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+    .nav-link {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 52px 72px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .hero-bg-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      right: 200px;
+      width: 1px;
+      background: var(--border);
+    }
+    .hero-bg-line2 {
+      position: absolute;
+      top: 0; bottom: 0;
+      right: 400px;
+      width: 1px;
+      background: var(--border);
+    }
+    .hero-ticker {
+      position: absolute;
+      top: 140px; left: 0; right: 0;
+      display: flex;
+      gap: 80px;
+      overflow: hidden;
+      white-space: nowrap;
+      opacity: 0.04;
+      pointer-events: none;
+    }
+    .hero-ticker span {
+      font-family: 'Syne', sans-serif;
+      font-size: 200px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(56px, 9vw, 130px);
+      font-weight: 800;
+      line-height: 0.88;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+      margin-bottom: 52px;
+    }
+    .hero-title .gold { color: var(--gold); }
+    .hero-meta {
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+    }
+    .hero-meta-item label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .hero-meta-item span {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .hero-scroll {
+      position: absolute;
+      right: 52px;
+      bottom: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-scroll span {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+    }
+    .hero-scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+
+    /* ── STAT BAR ── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat {
+      padding: 44px 40px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 96px 52px;
+      border-bottom: 1px solid var(--border);
+    }
+    section.tight { padding: 72px 52px; }
+    .sec-tag {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .sec-tag::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--gold);
+    }
+    h1.sec-title, h2.sec-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(30px, 4.5vw, 60px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      margin-bottom: 48px;
+    }
+    h3.sec-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(24px, 3vw, 40px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    /* ── LAYOUT HELPERS ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+    /* ── INTRO / STRATEGY ── */
+    .intro-lead {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(22px, 2.8vw, 38px);
+      font-weight: 600;
+      line-height: 1.25;
+      max-width: 760px;
+      margin-bottom: 36px;
+    }
+    .intro-lead .gold { color: var(--gold); }
+    .body-text {
+      font-size: 15px;
+      line-height: 1.85;
+      color: rgba(240,237,232,0.62);
+      max-width: 580px;
+    }
+    .body-text + .body-text { margin-top: 20px; }
+
+    /* ── PHASE SECTIONS ── */
+    .phase-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 120px;
+      font-weight: 800;
+      color: var(--gold);
+      opacity: 0.06;
+      line-height: 1;
+      margin-bottom: -30px;
+      margin-left: -4px;
+    }
+
+    /* ── SCREENSHOTS ── */
+    .shot-frame {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--mid);
+      transition: border-color 0.25s;
+    }
+    .shot-frame:hover { border-color: rgba(200,168,75,0.25); }
+    .shot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0.88;
+      transition: opacity 0.25s;
+    }
+    .shot-frame:hover img { opacity: 1; }
+    .shot-cap {
+      padding: 14px 18px;
+      background: rgba(200,168,75,0.06);
+      border-top: 1px solid rgba(200,168,75,0.15);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .shot-cap strong {
+      color: var(--white);
+      font-size: 13px;
+      letter-spacing: 0;
+      text-transform: none;
+      display: block;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    /* ── PILLS / METRICS ── */
+    .pill-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0; }
+    .pill {
+      background: var(--gold-dim);
+      border: 1px solid rgba(200,168,75,0.28);
+      border-radius: 100px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .pill .num { color: var(--gold); font-weight: 600; }
+    .pill-red {
+      background: var(--red-dim);
+      border-color: rgba(217,64,64,0.28);
+    }
+    .pill-red .num { color: var(--red); }
+
+    /* ── BUDGET TABLE ── */
+    .budget-table { width: 100%; border-collapse: collapse; }
+    .budget-table tr { border-bottom: 1px solid var(--border); }
+    .budget-table tr:last-child { border-bottom: none; }
+    .budget-table td { padding: 20px 0; font-size: 14px; vertical-align: top; }
+    .budget-table .td-label { color: rgba(240,237,232,0.55); max-width: 340px; line-height: 1.6; }
+    .budget-table .td-amount {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      text-align: right;
+      white-space: nowrap;
+      padding-left: 40px;
+    }
+    .budget-table tr.total td { padding-top: 28px; }
+    .budget-table tr.total .td-amount { color: var(--white); font-size: 30px; }
+    .budget-table tr.total .td-label { color: var(--white); font-weight: 600; font-size: 15px; }
+
+    /* ── RESULT GRID ── */
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      margin-top: 48px;
+    }
+    .result-cell {
+      padding: 44px 40px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .result-cell:nth-child(3n) { border-right: none; }
+    .result-cell:nth-last-child(-n+3) { border-bottom: none; }
+    .result-num {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 4.5vw, 64px);
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .result-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── LESSON CARDS ── */
+    .lesson-card {
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .lesson-card.miss {
+      border-color: rgba(217,64,64,0.22);
+      background: var(--red-dim);
+    }
+    .lesson-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .lesson-badge .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .lesson-card.miss .dot { background: var(--red); }
+    .lesson-card.miss .lesson-badge { color: var(--red); }
+    .lesson-h {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      margin-bottom: 10px;
+    }
+    .lesson-card.miss .lesson-h { color: var(--red); }
+    .lesson-body {
+      font-size: 13px;
+      color: rgba(240,237,232,0.55);
+      line-height: 1.75;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { position: relative; }
+    .tl-line {
+      position: absolute;
+      left: 0; top: 12px; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      opacity: 0.25;
+    }
+    .tl-item {
+      position: relative;
+      padding: 0 0 52px 36px;
+    }
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -4px; top: 11px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,168,75,0.15);
+    }
+    .tl-period {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .tl-heading {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .tl-desc {
+      font-size: 13px;
+      color: rgba(240,237,232,0.55);
+      line-height: 1.75;
+      max-width: 440px;
+    }
+
+    /* ── BLUEPRINT ── */
+    .blueprint {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      margin-top: 48px;
+    }
+    .bp-cell {
+      background: var(--black);
+      padding: 48px 44px;
+    }
+    .bp-step {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .bp-h {
+      font-family: 'Syne', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+    }
+    .bp-body {
+      font-size: 14px;
+      color: rgba(240,237,232,0.55);
+      line-height: 1.8;
+    }
+
+    /* ── CALLOUT BOX ── */
+    .callout {
+      background: var(--gold-dim);
+      border: 1px solid rgba(200,168,75,0.22);
+      border-radius: 6px;
+      padding: 36px 40px;
+      margin: 36px 0;
+    }
+    .callout .callout-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .callout p {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    /* ── BIG DIVIDER ── */
+    .big-divider {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin: 52px 0;
+    }
+    .big-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .big-divider-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 52px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-brand {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .footer-note {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .hero { padding: 0 24px 60px; }
+      nav .nav-right { display: none; }
+      section { padding: 60px 24px; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat { padding: 32px 24px; }
+      .grid-2, .grid-3, .grid-4, .blueprint { grid-template-columns: 1fr; }
+      .result-grid { grid-template-columns: 1fr 1fr; }
+      .result-cell:nth-child(2n) { border-right: none; }
+      .result-cell:nth-child(3n) { border-right: 1px solid var(--border); }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">SAMO Agency</div>
+    <div class="nav-right">
+      <a href="#strategy" class="nav-link">Strategy</a>
+      <a href="#phases" class="nav-link">Phases</a>
+      <a href="#results" class="nav-link">Results</a>
+      <a href="#lessons" class="nav-link">Lessons</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bg-line"></div>
+    <div class="hero-bg-line2"></div>
+    <div class="hero-ticker">
+      <span>DKD</span><span>DKD</span><span>DKD</span>
+    </div>
+    <div class="hero-eyebrow">Case Study — 2024–2025</div>
+    <h1 class="hero-title">
+      From<br>
+      <span class="gold">45</span><br>
+      to 20K
+    </h1>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <label>Artist</label>
+        <span>DKD</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Timeline</label>
+        <span>12 Months</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Genre</label>
+        <span>Hip-Hop / R&amp;B</span>
+      </div>
+      <div class="hero-meta-item">
+        <label>Agency</label>
+        <span>SAMO</span>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- STAT BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num">20K</div>
+      <div class="stat-label">Peak Monthly<br>Listeners</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">11K</div>
+      <div class="stat-label">Instagram<br>Followers Built</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">160K</div>
+      <div class="stat-label">Streams on<br>Top Track</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">#20</div>
+      <div class="stat-label">Taiwan Viral<br>Songs Chart</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Spotify<br>Playlists</div>
+    </div>
+  </div>
+
+  <!-- STRATEGY INTRO -->
+  <section id="strategy">
+    <div class="sec-tag">The Thesis</div>
+    <div class="grid-2">
+      <div>
+        <h2 class="sec-title">Content<br>is the<br>foundation</h2>
+      </div>
+      <div>
+        <p class="intro-lead">Find one video that works. <span class="gold">Run with it.</span> Build audience before you touch playlisting.</p>
+        <p class="body-text">DKD started with 45 Spotify monthly listeners and no social footprint. Instead of throwing money at Spotify playlists immediately, we went social-first — finding a niche audience, spending efficiently on repeatable impressions, and building a platform strong enough to unlock editorial placements.</p>
+        <p class="body-text" style="margin-top:16px;">The entire campaign ran over 12 months. The playbook is repeatable. This is the proof of concept.</p>
+        <div class="callout" style="margin-top:32px;">
+          <div class="callout-label">Core Insight</div>
+          <p>A niche audience that converts beats a broad audience that scrolls past. Chinese-American listeners were the unlock.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="tight">
+    <div class="sec-tag">The Arc</div>
+    <h2 class="sec-title">12-Month<br>Roadmap</h2>
+    <div class="grid-2">
+      <div class="timeline">
+        <div class="tl-line"></div>
+        <div class="tl-item">
+          <div class="tl-period">Month 1–2 — Start</div>
+          <div class="tl-heading">Audit &amp; Content Strategy</div>
+          <div class="tl-desc">Identified a breakout video concept targeting Chinese-American cultural identity. Built content templates around it for consistent output.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">Month 2–5 — Phase 1</div>
+          <div class="tl-heading">Social-First Build</div>
+          <div class="tl-desc">Ran paid social campaigns targeting Chinese listeners. Achieved $1 per Instagram follower. Scaled from 0 to 11K followers. TikTok video broke 2.4M views.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">Month 5–9 — Phase 2</div>
+          <div class="tl-heading">Spotify Curation Push</div>
+          <div class="tl-desc">$500 per curator campaign until songs entered Distrokid's Discovery Mode. Three $500 Spotify Ads campaigns run in parallel. Charted at #20 Taiwan Viral Songs Daily.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-period">Month 9–12 — Phase 3</div>
+          <div class="tl-heading">Editorial Unlock</div>
+          <div class="tl-desc">With 10K+ Instagram and 20K Spotify listeners, successfully pitched Apple Music editorial. Songs placed on Apple playlists — a milestone unavailable without the social proof.</div>
+        </div>
+        <div class="tl-item" style="padding-bottom:0">
+          <div class="tl-period">Post-Campaign</div>
+          <div class="tl-heading">Plateau (No Agency)</div>
+          <div class="tl-desc">Once SAMO disengaged, monthly listeners held but stopped growing. Discovery Mode maintained baseline streams. Without active steering, the momentum stalled.</div>
+        </div>
+      </div>
+      <div>
+        <div class="shot-frame">
+          <img src="soundcharts.jpg" alt="DKD Soundcharts Overview">
+          <div class="shot-cap">
+            <strong>Platform Overview — Soundcharts</strong>
+            12.2K total fans across all platforms. Instagram at 9.73K, Spotify 2.35K followers.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 1 -->
+  <section id="phases">
+    <div class="phase-label">01</div>
+    <div class="sec-tag">Phase One — Social First</div>
+    <h2 class="sec-title">Find Your<br>Niche. Own It.</h2>
+    <div class="grid-2">
+      <div>
+        <p class="body-text">Most artists try to reach everyone. We went the opposite way — targeting Chinese and Chinese-American audiences specifically, because that community converts.</p>
+        <p class="body-text" style="margin-top:16px;">Paid social on Instagram and TikTok with tight demographic targeting. The unit economics were clean: <strong style="color:var(--white);">$1 per Instagram follower</strong>. We reinvested until we hit 11K.</p>
+        <div class="big-divider">
+          <div class="big-divider-label">Key Metrics</div>
+        </div>
+        <div class="pill-row">
+          <div class="pill"><span class="num">$1</span> / IG follower</div>
+          <div class="pill"><span class="num">11K</span> IG followers built</div>
+          <div class="pill"><span class="num">2.4M</span> TikTok views (top video)</div>
+          <div class="pill"><span class="num">748K</span> views (second video)</div>
+        </div>
+        <p class="body-text">The breakout TikTok video — leaning into DKD's identity as a Chinese-American rapper — was the creative proof of concept. Once it landed, we replicated the format.</p>
+        <div class="callout" style="margin-top:32px;">
+          <div class="callout-label">Why It Worked</div>
+          <p>Niche + repetition + dollars with clear CPF = compounding audience. The Chinese diaspora music community was undersaturated and highly engaged.</p>
+        </div>
+      </div>
+      <div>
+        <div class="shot-frame">
+          <img src="Untitled%20777.png" alt="DKD TikTok Content Grid">
+          <div class="shot-cap">
+            <strong>TikTok Content Grid</strong>
+            2.4M views on breakout video. Consistent output built social proof that unlocked algorithm reach.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section>
+    <div class="phase-label">02</div>
+    <div class="sec-tag">Phase Two — Spotify Push</div>
+    <h2 class="sec-title">Playlist<br>Placement<br>&amp; Discovery Mode</h2>
+    <div class="grid-2">
+      <div>
+        <div class="shot-frame">
+          <img src="Untitled%207.png" alt="DKD Spotify Songs">
+          <div class="shot-cap">
+            <strong>Spotify for Artists — Top Tracks</strong>
+            Vibin leads with 159K streams. 9 songs all crossing 60K streams.
+          </div>
+        </div>
+        <div style="margin-top:24px">
+          <div class="shot-frame">
+            <img src="Untitled%2010.png" alt="DKD Soundcharts Charts">
+            <div class="shot-cap">
+              <strong>Soundcharts — Chart Positions</strong>
+              Vibin #20 Taiwan Viral Songs Daily (Aug 2024). True #90 (Oct 2024).
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="body-text">With 11K Instagram followers as social proof, we opened the Spotify front. Campaign strategy: $500 per curator submission wave, repeated until songs crossed the threshold for Distrokid's Discovery Mode — a direct pipeline into Spotify's algorithmic playlists.</p>
+        <div class="big-divider">
+          <div class="big-divider-label">Budget Breakdown</div>
+        </div>
+        <table class="budget-table">
+          <tr>
+            <td class="td-label">Instagram paid social — niche targeting (Chinese audience), $1 CPF goal</td>
+            <td class="td-amount">~$11K</td>
+          </tr>
+          <tr>
+            <td class="td-label">Spotify curator campaigns — $500 per campaign, multiple rounds</td>
+            <td class="td-amount">~$1,500</td>
+          </tr>
+          <tr>
+            <td class="td-label">Spotify Ads — 3 campaigns across multiple tracks</td>
+            <td class="td-amount">$1,500</td>
+          </tr>
+          <tr class="total">
+            <td class="td-label">Total Campaign Spend (est.)</td>
+            <td class="td-amount">~$14K</td>
+          </tr>
+        </table>
+        <div class="callout" style="margin-top:32px;">
+          <div class="callout-label">Discovery Mode Unlock</div>
+          <p>Distrokid's Discovery Mode partnership gave tracks algorithmic push once curator placements crossed the threshold. This was the Spotify multiplier.</p>
+        </div>
+        <div class="pill-row" style="margin-top:24px">
+          <div class="pill"><span class="num">$500</span> per curator campaign</div>
+          <div class="pill"><span class="num">3×</span> Spotify Ads campaigns</div>
+          <div class="pill"><span class="num">50+</span> playlists landed</div>
+          <div class="pill"><span class="num">#20</span> Taiwan Viral Chart</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHASE 3 -->
+  <section>
+    <div class="phase-label">03</div>
+    <div class="sec-tag">Phase Three — Editorial</div>
+    <h2 class="sec-title">Apple Music<br>Placement<br>Unlocked</h2>
+    <div class="grid-2">
+      <div>
+        <p class="body-text">Editorial playlists — especially Apple Music — require social proof before a pitch lands. The gatekeepers don't open the door for artists with 500 followers.</p>
+        <p class="body-text" style="margin-top:16px;">Crossing 10K Instagram followers was the threshold. Combined with 20K Spotify monthly listeners and verified chart data from Taiwan, the pitch had legs. Apple Music editorial placements followed.</p>
+        <p class="body-text" style="margin-top:16px;">This is the sequence: <strong style="color:var(--white);">social first → streaming proof → editorial.</strong> Not the other way around.</p>
+        <div class="big-divider">
+          <div class="big-divider-label">Playlist Placements</div>
+        </div>
+        <div class="pill-row">
+          <div class="pill"><span class="num">46K</span> likes — Rap Caviar but actually good</div>
+          <div class="pill"><span class="num">40K</span> reach — Rap Selection</div>
+          <div class="pill"><span class="num">36K</span> reach — Leo Rap</div>
+          <div class="pill"><span class="num">Apple Music</span> editorial placement</div>
+        </div>
+      </div>
+      <div>
+        <div class="shot-frame">
+          <img src="Untitled%2011.png" alt="DKD Playlist Data">
+          <div class="shot-cap">
+            <strong>Soundcharts — Playlist Tracker</strong>
+            Top playlists reaching 35K–46K listeners. "Rap Caviar but it's actually good" as top placement.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results">
+    <div class="sec-tag">The Outcome</div>
+    <h2 class="sec-title">Results<br>in 12 Months</h2>
+    <p class="body-text" style="max-width:640px">Starting from 45 Spotify monthly listeners and zero social presence, a focused 12-month campaign built a real, measurable audience with cross-platform data to prove it.</p>
+    <div class="result-grid">
+      <div class="result-cell">
+        <div class="result-num">45→20K</div>
+        <div class="result-label">Spotify Monthly<br>Listeners Growth</div>
+      </div>
+      <div class="result-cell">
+        <div class="result-num">11K</div>
+        <div class="result-label">Instagram Followers<br>Built from Zero</div>
+      </div>
+      <div class="result-cell">
+        <div class="result-num">$1</div>
+        <div class="result-label">Cost Per Follower<br>on Instagram</div>
+      </div>
+      <div class="result-cell">
+        <div class="result-num">159K</div>
+        <div class="result-label">Streams — Top Track<br>"Vibin"</div>
+      </div>
+      <div class="result-cell">
+        <div class="result-num">#20</div>
+        <div class="result-label">Taiwan Viral Songs<br>Daily Chart</div>
+      </div>
+      <div class="result-cell">
+        <div class="result-num">50+</div>
+        <div class="result-label">Spotify Playlists<br>Landed</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT STALLED -->
+  <section id="lessons">
+    <div class="sec-tag">What Stalled It</div>
+    <h2 class="sec-title">Missed<br>Opportunities</h2>
+    <p class="body-text" style="max-width:640px; margin-bottom:48px">Growth stalled after SAMO disengaged. Some of this was expected. Some was preventable. These are the variables that, if activated, would have compounded the momentum significantly.</p>
+    <div class="grid-3">
+      <div class="lesson-card miss">
+        <div class="lesson-badge"><div class="dot"></div> Missed</div>
+        <div class="lesson-h">Not Enough Content</div>
+        <div class="lesson-body">The content machine needed to run hotter. One viral video is a start, not a system. Consistent output would have sustained algorithm reach without relying purely on paid spend.</div>
+      </div>
+      <div class="lesson-card miss">
+        <div class="lesson-badge"><div class="dot"></div> Missed</div>
+        <div class="lesson-h">No Artist Collabs</div>
+        <div class="lesson-body">Spotify Radio revealed a cluster of adjacent artists with overlapping audiences. Collaboration tracks — even loosies — would have cross-pollinated listeners and created organic playlist adjacency.</div>
+      </div>
+      <div class="lesson-card miss">
+        <div class="lesson-badge"><div class="dot"></div> Missed</div>
+        <div class="lesson-h">No Local Presence</div>
+        <div class="lesson-body">No local shows. No community building in the city. Live presence converts passive Spotify listeners into real fans. It's the multiplier the algorithm can't replicate.</div>
+      </div>
+      <div class="lesson-card miss">
+        <div class="lesson-badge"><div class="dot"></div> Missed</div>
+        <div class="lesson-h">No Asia Shows</div>
+        <div class="lesson-body">After landing a genuine Taiwanese chart position and a Chinese-diaspora audience, the logical next step was Asia shows. A short Asia run could have converted that digital footprint into real ticket revenue.</div>
+      </div>
+      <div class="lesson-card miss">
+        <div class="lesson-badge"><div class="dot"></div> Missed</div>
+        <div class="lesson-h">No Active Steering</div>
+        <div class="lesson-body">Streams have held since the agency disengaged — Discovery Mode is doing its job. But no new growth. Momentum without a hand on the wheel eventually levels off.</div>
+      </div>
+      <div class="lesson-card">
+        <div class="lesson-badge"><div class="dot" style="background:var(--gold)"></div> What Held</div>
+        <div class="lesson-h">Discovery Mode Maintained</div>
+        <div class="lesson-body">Distrokid's Discovery Mode continues to generate algorithmic plays. The playlist footprint (50+ playlists) has provided a baseline stream floor even without new campaigns.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLUEPRINT -->
+  <section>
+    <div class="sec-tag">The Playbook</div>
+    <h2 class="sec-title">Repeatable<br>Blueprint</h2>
+    <p class="body-text" style="max-width:640px">This campaign is a proof of concept. The framework scales. Here's what we know works.</p>
+    <div class="blueprint">
+      <div class="bp-cell">
+        <div class="bp-step">Step 01</div>
+        <div class="bp-h">Find Your Niche</div>
+        <div class="bp-body">Identify an underserved, high-affinity community for the artist. For DKD it was Chinese-diaspora listeners — culturally resonant, digitally active, and willing to follow. Niche audiences convert better than broad ones.</div>
+      </div>
+      <div class="bp-cell">
+        <div class="bp-step">Step 02</div>
+        <div class="bp-h">Spend on Repetition</div>
+        <div class="bp-body">Paid social with tight targeting. Goal: $1 CPF or better. Spend until you have 10K+ social followers. That number is the key to editorial. Don't move to Spotify spend until you have social proof.</div>
+      </div>
+      <div class="bp-cell">
+        <div class="bp-step">Step 03</div>
+        <div class="bp-h">Hit Curator Campaigns</div>
+        <div class="bp-body">$500 per curator campaign. Run multiple rounds across different tracks. Target until songs enter Discovery Mode. Three Spotify Ads campaigns running in parallel maximize the surface area.</div>
+      </div>
+      <div class="bp-cell">
+        <div class="bp-step">Step 04</div>
+        <div class="bp-h">Pitch Editorial</div>
+        <div class="bp-body">10K+ Instagram + 20K monthly listeners + chart data = a pitch that lands. Apple Music editorial, Spotify editorial pitches, and blog coverage all become accessible at this threshold. Not before.</div>
+      </div>
+      <div class="bp-cell">
+        <div class="bp-step">Step 05 — Missed Opportunity</div>
+        <div class="bp-h">Build IRL Presence</div>
+        <div class="bp-body">Shows in the niche market. For DKD, Asia was the obvious next step. Local shows wherever the artist lives. Live builds what digital can't: real fans, ticket buyers, word-of-mouth.</div>
+      </div>
+      <div class="bp-cell" style="background: var(--gold-dim);">
+        <div class="bp-step">Proof of Concept</div>
+        <div class="bp-h">It Works in 12 Months</div>
+        <div class="bp-body">45 listeners to 20K. $0 to $14K spend. Zero social presence to 11K IG followers and an Apple Music placement. The blueprint is validated. The only question is whether the artist stays in the car.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">SAMO Agency — DKD Case Study 2024–2025</div>
+    <div class="footer-note">Confidential — not for distribution</div>
+  </footer>
+
+</body>
+</html>
